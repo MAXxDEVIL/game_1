@@ -1,5 +1,6 @@
 import pygame
 import random
+import math
 
 pygame.init()
 
@@ -8,7 +9,7 @@ pygame.init()
 screen = pygame.display.set_mode((800, 600))
 
 # Background 
-background =  pygame.image.load('background.jpg')
+background =  pygame.image.load('background.png')
 
 
 # Title and Icon
@@ -28,16 +29,49 @@ def player(x, y):
     screen.blit(playerImg, (x, y))
 
 
+# Bullet 
+bulletImg = pygame.image.load('bullet.png')
+bulletX = 0
+bulletY = 480
+
+bulletX_change = 0
+bulletY_change = 10
+bulletState = "ready"
+
+def fireBullet(x, y):
+    global bulletState
+    bulletState = "fire"
+    screen.blit(bulletImg, (x+16, y+10))
+
+
+# Collision
+def isCollision(enemy1X,enemy1Y,bulletX,bulletY):
+    distance = math.sqrt(math.pow((enemy1X- bulletX), 2) + math.pow((enemy1Y - bulletY), 2))
+    if distance < 27:
+        return True
+    else:
+        return False
+
+
 # Enimy_1
-enemyImg1 = pygame.image.load('ufo_1.png')
-enemy1X = random.randint(30, 736)
-enemy1Y = random.randint(0, 100)
+enemyImg1 = []
+enemy1X = []
+enemy1Y = []
 
-enemy1X_change = .2
-enemy1Y_change = 10
+enemy1X_change = []
+enemy1Y_change = []
 
-def enemy_1(x, y):
-    screen.blit(enemyImg1, (x, y))
+numOfEnemys = 6
+
+for i in range(numOfEnemys):
+    enemyImg1.append (pygame.image.load('ufo_1.png'))
+    enemy1X.append(random.randint(30, 736))
+    enemy1Y.append(random.randint(0, 100))
+    enemy1X_change.append(1.5)
+    enemy1Y_change.append(20)
+
+def enemy_1(x, y, i):
+    screen.blit(enemyImg1[i], (x, y))
 
 
 # Enimy_2
@@ -48,6 +82,10 @@ enemy2Y = 480
 enemy2X_change = 0
 
 
+# Score board
+score = 0
+
+
 # Game Loop
 running = True
 
@@ -56,8 +94,8 @@ while running :
     # RGB  (Clore of the screen)
     screen.fill((0,0,0,))
 
-    # background Img
-    
+    # Background Img
+    screen.blit(background,(0,0))
     
 
     for event in pygame.event.get():
@@ -71,19 +109,22 @@ while running :
         if event.type == pygame.KEYDOWN:
 
             if event.key == pygame.K_LEFT:
-                playerX_change = -0.2
+                playerX_change = -2
 
             if event.key == pygame.K_RIGHT:
-                playerX_change = 0.2
+                playerX_change = 2
+
+            if event.key == pygame.K_SPACE:
+                if bulletState is "ready":
+                    bulletX = playerX
+                    fireBullet(bulletX, bulletY)
+
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 playerX_change = 0
 
-        # Enemy Movement
 
-        
-            
     # Player Boundary       
     playerX += playerX_change
 
@@ -93,19 +134,55 @@ while running :
         playerX = 736
 
 
-    # Enemy Boundary       
-    enemy1X += enemy1X_change
+    # Bullet movement 
+    if bulletY <= 0:
+        bulletY = 480
+        bulletState = "ready"
+
+    if bulletState is "fire":
+        fireBullet(bulletX, bulletY)
+        bulletY -= bulletY_change
+
+
+    # Enemy Boundary      
+    for i in range(numOfEnemys):
+        enemy1X[i] += enemy1X_change[i]
+        if enemy1X[i] <= 0 :
+            enemy1X_change[i] = 1.5
+            enemy1Y[i] += enemy1Y_change[i]
+        elif enemy1X[i] >= 736 :
+            enemy1X_change[i] = -1.5
+            enemy1Y[i] += enemy1Y_change[i]
+   
+        # Collision 
+        collision = isCollision(enemy1X[i],enemy1Y[i],bulletX,bulletY)
+        if collision:
+            bulletY = 480
+            bulletState = "ready"
+            score += 1
+            print(score)
+            enemy1X[i] = random.randint(30, 736)
+            enemy1Y[i] = random.randint(0, 100)
+        enemy_1(enemy1X[i], enemy1Y[i], i)
+
+        # Collision 
+        collision = isCollision(enemy1X[i],enemy1Y[i],bulletX,bulletY)
+        if collision:
+            bulletY = 480
+            bulletState = "ready"
+            score += 1
+            print(score)
+            enemy1X[i] = random.randint(30, 736)
+            enemy1Y[i] = random.randint(0, 100)
+        enemy_1(enemy1X[i], enemy1Y[i], i)
+
+
+        player(playerX, playerY)
+
     
-    if enemy1X <= 0 :
-        enemy1X_change = 0.2
-        enemy1Y += enemy1Y_change
-    if enemy1X >= 736 :
-        enemy1X_change = -0.2
-        enemy1Y += enemy1Y_change
 
 
-    player(playerX, playerY)
 
-    enemy_1(enemy1X, enemy1Y)
+
 
     pygame.display.update()
