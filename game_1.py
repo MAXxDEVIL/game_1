@@ -83,9 +83,15 @@ enemy2X_change = 0
 
 
 # Score board
-score = 0
+scoreValu = 0
+font = pygame.font.Font('Spicy Sale.ttf', 32)
 
+textX =10
+textY = 10
 
+def showScore(x, y):
+    score = font.render("Score : " + str(scoreValu), True, (255, 255, 255))
+    screen.blit(score, (x, y))
 # Game Loop
 running = True
 
@@ -159,30 +165,16 @@ while running :
         if collision:
             bulletY = 480
             bulletState = "ready"
-            score += 1
-            print(score)
+            scoreValu += 1
+            print(scoreValu)
             enemy1X[i] = random.randint(30, 736)
             enemy1Y[i] = random.randint(0, 100)
-        enemy_1(enemy1X[i], enemy1Y[i], i)
 
-        # Collision 
-        collision = isCollision(enemy1X[i],enemy1Y[i],bulletX,bulletY)
-        if collision:
-            bulletY = 480
-            bulletState = "ready"
-            score += 1
-            print(score)
-            enemy1X[i] = random.randint(30, 736)
-            enemy1Y[i] = random.randint(0, 100)
         enemy_1(enemy1X[i], enemy1Y[i], i)
 
 
-        player(playerX, playerY)
+    player(playerX, playerY)
 
-    
-
-
-
-
+    showScore(textX, textY)
 
     pygame.display.update()
