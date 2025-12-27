@@ -88,14 +88,6 @@ def enemy_1(x, y, i):
     screen.blit(enemyImg1[i], (x, y))
 
 
-# Enimy_2
-enemyImg2 = pygame.image.load('ufo_2.png')
-enemy2X = 370
-enemy2Y = 480
-
-enemy2X_change = 0
-
-
 # Score board
 scoreValu = 0
 font = pygame.font.Font('Spicy Sale.ttf', 32)
