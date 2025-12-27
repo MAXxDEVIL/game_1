@@ -7,6 +7,10 @@ from pygame import mixer
 
 pygame.init()
 
+# Title and Icon
+pygame.display.set_caption("Space Invaders")
+icon = pygame.image.load('icon.png')
+pygame.display.set_icon(icon)
 
 # Creat display window
 screen = pygame.display.set_mode((800, 600))
@@ -14,14 +18,18 @@ screen = pygame.display.set_mode((800, 600))
 # Background 
 background =  pygame.image.load('background.png')
 
+#Game over display
+gameOverFont = pygame.font.Font('SuperMario256.ttf', 64)
+
+def gameOverText():
+    overFont = gameOverFont.render("GAME OVER", True, (255, 255, 255))
+    screen.blit(overFont, (200, 250))
+
 # Background Sound
 mixer.music.load('background.wav')
 mixer.music.play(-1)
 
-# Title and Icon
-pygame.display.set_caption("Space Invaders")
-icon = pygame.image.load('icon.png')
-pygame.display.set_icon(icon)
+
 
 
 # Player
@@ -74,7 +82,7 @@ for i in range(numOfEnemys):
     enemy1X.append(random.randint(30, 736))
     enemy1Y.append(random.randint(0, 100))
     enemy1X_change.append(1.5)
-    enemy1Y_change.append(20)
+    enemy1Y_change.append(40)
 
 def enemy_1(x, y, i):
     screen.blit(enemyImg1[i], (x, y))
@@ -160,6 +168,13 @@ while running :
 
     # Enemy Boundary      
     for i in range(numOfEnemys):
+        # Game Over Text
+        if enemy1Y[i] > 440:
+            for j in range(numOfEnemys):
+                enemy1Y[j] = 2000 
+            gameOverText()
+            break
+
         enemy1X[i] += enemy1X_change[i]
         if enemy1X[i] <= 0 :
             enemy1X_change[i] = 1.5
