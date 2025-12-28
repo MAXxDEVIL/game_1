@@ -59,13 +59,50 @@ Control a rocket, shoot enemy UFOs, score points, and survive as long as you can
 - Game ends when enemies reach the bottom
 
 ---
-
+## ⚙️ How to Run the Project
+Download or clone this repository  
+   ```bash
+   git clone https://github.com/MAXxDEVIL/game_1.git
+   ```
+---
 ## ▶️ How to Run the Game
 
-# For Windows
-1. Make sure **Python 3** is installed  
-2. Install Pygame:
+
+
+# For Windows 🪟
+1. Make sure **Python 3** is installed
+2. Make a virtual environment
+```bash
+python -m venv <name>
+   ```
+3. Activate the environment
+```bash
+source <name>/Scripts/activate
+   ```
+5. Install Pygame:
 ```bash
    pip install pygame
    ```
-# For Lunix
+6. Run
+```bash
+python game_1.py
+   ```
+
+
+# For Lunix 🐧
+1. Make sure **Python 3** is installed
+2. Make a virtual environment
+```bash
+python -m venv <name>
+   ```
+3. Activate the environment
+```bash
+source <name>/bin/activate
+   ```
+5. Install Pygame:
+```bash
+   pip install pygame
+   ```
+6. Run
+```bash
+python game_1.py
