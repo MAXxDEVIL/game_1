@@ -46,8 +46,6 @@ Control a rocket, shoot enemy UFOs, score points, and survive as long as you can
 │
 └── README.md
 ```
-
-
 ---
 
 ## 🎯 How to Play
@@ -87,7 +85,6 @@ source <name>/Scripts/activate
 ```bash
 python game_1.py
    ```
-
 
 # For Linux 🐧
 1. Make sure **Python 3** is installed
