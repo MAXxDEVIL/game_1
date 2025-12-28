@@ -20,7 +20,7 @@ Control a rocket, shoot enemy UFOs, score points, and survive as long as you can
 
 ## 🛠️ Technologies Used
 
-- **Python 3**
+- **Python 3 🐍**
 - **Pygame**
 - Math & Random modules
 
