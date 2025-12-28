@@ -89,7 +89,7 @@ python game_1.py
    ```
 
 
-# For Lunix 🐧
+# For Linux 🐧
 1. Make sure **Python 3** is installed
 2. Make a virtual environment
 ```bash
