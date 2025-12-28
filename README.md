@@ -103,3 +103,6 @@ source <name>/bin/activate
 6. Run
 ```bash
 python game_1.py
+```
+---
+⭐ If you like this project, don’t forget to give it a star!
