@@ -79,7 +79,7 @@ source <name>/Scripts/activate
    ```
 5. Install Pygame:
 ```bash
-   pip install pygame
+pip install pygame
    ```
 6. Run
 ```bash
