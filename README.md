@@ -1,4 +1,4 @@
-# 🚀 Space Invaders – Python Game (Pygame)
+# 🚀 Space Invaders
 
 A classic **Space Invaders–style arcade game** built using **Python and Pygame**.  
 Control a rocket, shoot enemy UFOs, score points, and survive as long as you can in space!
